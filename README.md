@@ -1,3 +1,3 @@
-# My extended version of PyGame
+# Beyond The Grave
 
-An extension for the PyGame framework.
+A dungeon crawler game made with python

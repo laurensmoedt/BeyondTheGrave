@@ -6,7 +6,7 @@ class Core:
 
     def __init__(self, width, height):
         self.width = width
-        self.height = height  
+        self.height = height
         self.win = pygame.display.set_mode((self.width, self.height))
         self.mainMenu = mainMenu(self.win)
         self.scene = scenes(self.mainMenu, self.win)
@@ -30,4 +30,4 @@ class Core:
         pygame.display.update()
 
 Scene = Core(800, 500)
-Scene.run('Ext-PyGame', 60)
+Scene.run('Beyond-The-Grave', 60)
