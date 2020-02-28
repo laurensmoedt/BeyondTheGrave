@@ -8,7 +8,7 @@ These are the explanations and examples for each different class.
 
 * **Text**
 
-The text class can be used to place text inside a scene with ease. 
+The text class can be used to place text inside a scene with ease.
 
 For the initialisation of the text class it'll need three arguments: `tColor`, `fontSize` &
 `properties`. For the `tColor` you'll need to set an color from the `Color` class or a tuple with
@@ -30,7 +30,7 @@ The text class has template text, to change the string you'll need to adjust the
 There's also the option to change the font. This can be done by the `setFont` method. It'll need
 only one argument: `path`. The `path` is a string that contains the path where the font is located.
 
-> `self.UIText.setFont('scenes/assets/fonts/KulimPark-Regular.ttf')`
+> `self.UIText.setFont('project/assets/fonts/KulimPark-Regular.ttf')`
 
 Once these steps are all initialised run the method `draw`. The `draw` method needs one argument:
 `win`. The `win` argument will need an pygame window.
@@ -39,7 +39,7 @@ Once these steps are all initialised run the method `draw`. The `draw` method ne
 
 * **Slider**
 
-The slider class can be used to adjust a value via a slider. 
+The slider class can be used to adjust a value via a slider.
 
 For the initialisation of the slider class it'll need two arguments: `colors` & `properties`. For
 the `colors` you'll need a list of two RGB tuples (one for the indicator & one for the slider), for
@@ -102,11 +102,11 @@ one argument: `win`. The win argument needs a pygame window as value.
 
 * **Image**
 
-The image class is used to load an image. The image class is necessary for the `Actor` class. 
+The image class is used to load an image. The image class is necessary for the `Actor` class.
 
 For the initialisation of the image class it'll need two arguments: `fileName` & `properties`.
 For the `fileName` you'll need to set the name of the sprite. The fixed path is located in
-`scenes/assets/sprites`. So all it needs to have is the file name & for the `properties` it'll need
+`project/assets/sprites`. So all it needs to have is the file name & for the `properties` it'll need
 a list with the width and the height.
 
 ***Example***
@@ -114,7 +114,7 @@ a list with the width and the height.
 > `self.UIImage = image('nameOfSprite.png', [64, 64])`
 
 Once this is initialised there's the option to set the position, angle & the scale. The reason they
-are optional is mainly because the same functionalities are located in the `Actor` class. 
+are optional is mainly because the same functionalities are located in the `Actor` class.
 
 > `self.UIImage.setAngle(90)` & `self.UIImage.getAngle()`
 > `self.UIImage.setScale2X()` & `self.UIImage.setScale(3)`
@@ -136,7 +136,7 @@ class.
 
 For the initialisation of the actor class it'll need two arguments: `image` & `hasAnim`. The `image`
 argument ca be used with two different types. Type 1: an instance of the image class, Type 2: a
-string with the path to the folder with frames (There's a fixed path: 'scenes/assets/animations/') & for the `hasAnim` argument its a boolean with
+string with the path to the folder with frames (There's a fixed path: 'project/assets/animations/') & for the `hasAnim` argument its a boolean with
 `True` sets animation on true & `False` will set the animation to true.
 
 ***Example***
@@ -185,7 +185,7 @@ After all these steps (or some of them), you'll need to run the `_draw` method.
 
 * **scenes**
 
-The scenes class is used to switch between scenes. 
+The scenes class is used to switch between scenes.
 
 For the initialisation of the scenes class, it'll two arguments: `scene` & `win`. For the `scene`
 argument it'll need an instance of the class, you'll want to draw & for the `win` argument it'll
@@ -230,10 +230,10 @@ Here's a list of pre initialised colors:
 * cyan
 * gray
 
-* **Collision** 
+* **Collision**
 
 The collision class contains simple ways to set collision, square collision and circle collision
-inside an actor inherited class. 
+inside an actor inherited class.
 
 For the initialisation of the collision class it'll need two arguments: `actor` & `colType`. For the
 `actor` you'll need to set the current actor and for the `colType` it needs to be string type with

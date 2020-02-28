@@ -2,7 +2,7 @@ import pygame
 import os
 
 class animator(pygame.sprite.Sprite):
-    
+
     def __init__(self, positions, size, path):
         super(animator, self).__init__()
         size = (size[0], size[1])
@@ -20,10 +20,10 @@ class animator(pygame.sprite.Sprite):
 
     def _loadImages(self, path):
         images = []
-        fixedPath = 'scenes/assets/animations'
+        fixedPath = 'project/assets/animations'
         for files in os.listdir(fixedPath + path):
             try:
-                image = pygame.image.load('scenes/assets/animations' + path + os.sep + files).convert()
+                image = pygame.image.load('project/assets/animations' + path + os.sep + files).convert()
                 images.append(image)
             except pygame.error: continue
         return images
@@ -54,4 +54,4 @@ class animator(pygame.sprite.Sprite):
         elif dependency is 'frame':
             self.updateFrameDependent()
         else:
-            raise NameError('The dependency value is incorrect. Use time or frame.') 
+            raise NameError('The dependency value is incorrect. Use time or frame.')

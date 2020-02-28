@@ -1,6 +1,6 @@
 import pygame
 from Extensions.scenes import scenes
-from scenes.menu import mainMenu
+from project.menu import mainMenu
 
 class Core:
 

@@ -1,7 +1,7 @@
 import pygame
 from Extensions.color import color
 from Extensions.scenes import scenes
-from scenes.Player import Player
+from project.Player import Player
 
 class mainMenu:
 
@@ -10,7 +10,7 @@ class mainMenu:
         self.window = win
         # Background color init
         self.backgroundColor = self.color.custom('#70A9A1')
-        self.player = Player(self.window)
+        self.player = Player(self.window, 10)
 
     def draw(self, clock, fps):
         self.window.fill(self.backgroundColor)

@@ -13,7 +13,7 @@ class image:
         self.position = [0, 0]
 
     def _setupImage(self):
-        image = pygame.image.load(os.path.join("scenes/assets/sprites", self.fileName))
+        image = pygame.image.load(os.path.join("project/assets/sprites", self.fileName))
         scaledImage = pygame.transform.scale(image, (self.width, self.height))
         if not self._angle is 0:
             rotatedImage = pygame.transform.rotate(scaledImage, self._angle)
@@ -43,4 +43,3 @@ class image:
 
     def draw(self, win):
         win.blit(self._setupImage(), (self.position[0], self.position[1]))
-
