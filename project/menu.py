@@ -10,7 +10,7 @@ class mainMenu:
         self.window = win
         # Background color init
         self.backgroundColor = self.color.custom('#70A9A1')
-        self.player = Player(self.window, 10)
+        self.player = Player(self.window, 10, 30) # Player with value 'speed' and 'moveSmoothness'
 
     def draw(self, clock, fps):
         self.window.fill(self.backgroundColor)
