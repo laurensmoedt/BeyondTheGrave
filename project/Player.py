@@ -10,13 +10,16 @@ class Player(actor):
         super().__init__(self.playerImage)
         super().setPosition([100, 100])
 
-        self.pos = pygame.Vector2(0, 0)
-        self.set_target((0, 0))
+        startPos = super().getPosition()
+        self.pos = pygame.Vector2(startPos)
+        self.pos -= self.playerImage.getWidth()/2, self.playerImage.getHeight()
+        self.set_target(startPos)
         self.speed = speed
         self.targetRadius = moveSmoothness
 
     def set_target(self, pos):
         self.target = pygame.Vector2(pos)
+        self.target -= self.playerImage.getWidth()/2, self.playerImage.getHeight()
 
     def movement(self):
         for event in pygame.event.get():
@@ -28,15 +31,13 @@ class Player(actor):
 
         if move:
             move.normalize_ip()
-        if move_length < self.speed: # player stops moving if target is reached
-            self.pos = self.target
-        elif move_length > self.targetRadius:
+        if move_length > self.targetRadius:
             move = move * self.speed
         else:
-            move = move * (move_length / self.targetRadius * self.speed) # slows down Player if player is close tho the target
+            move = move * (move_length / self.targetRadius * self.speed) # slows down Player if player is close to the target
 
         self.pos += move
-        super().setPosition(self.pos)
+        newPos = super().setPosition(self.pos)
 
     def draw(self):
         super()._draw(self.win)
