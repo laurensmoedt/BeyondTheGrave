@@ -16,6 +16,6 @@ class scenes:
                     pygame.quit()
             clock.tick(fps)
             pygame.display.update()
-            
+
     def update(self, clock, fps):
         self._setupScene(clock, fps)

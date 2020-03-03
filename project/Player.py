@@ -23,8 +23,10 @@ class Player(actor):
 
     def movement(self):
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.mouse.get_pressed()[0]:
                 self.set_target(pygame.mouse.get_pos())
+                if event.type == pygame.MOUSEMOTION:
+                    self.set_target(pygame.mouse.get_pos())
 
         move = self.target - self.pos
         move_length = move.length()
