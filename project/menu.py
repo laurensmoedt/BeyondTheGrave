@@ -15,3 +15,4 @@ class mainMenu:
     def draw(self, clock, fps):
         self.window.fill(self.backgroundColor)
         self.player.draw()
+        pygame.display.update()

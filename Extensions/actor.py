@@ -22,7 +22,7 @@ class actor:
         else:
             self.allSprites, self.animatedActor = None, None
             self.animDependency = None
-                        
+
     def setAngle(self, angle):
         self.texture.setAngle(angle)
 
@@ -32,7 +32,7 @@ class actor:
     def setPosition(self, position):
         if not self.hasAnimation:
             self.texture.position = position
-        else: 
+        else:
             self.position = position
 
     def getPosition(self):
@@ -61,4 +61,3 @@ class actor:
             self.allSprites.draw(win)
         elif not self.hasAnimation:
             self.texture.draw(win)
-        pygame.display.update()
