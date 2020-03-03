@@ -1,6 +1,6 @@
 import pygame
 from Extensions.scenes import scenes
-from project.menu import mainMenu
+from project.Main import Main
 
 class Core:
 
@@ -8,8 +8,8 @@ class Core:
         self.width = width
         self.height = height
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.mainMenu = mainMenu(self.win)
-        self.scene = scenes(self.mainMenu, self.win)
+        self.Main = Main(self.win)
+        self.scene = scenes(self.Main, self.win)
         pygame.init()
 
     def run(self, title, fps):

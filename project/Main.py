@@ -3,7 +3,7 @@ from Extensions.color import color
 from Extensions.scenes import scenes
 from project.Player import Player
 
-class mainMenu:
+class Main:
 
     def __init__(self, win):
         self.color = color()
