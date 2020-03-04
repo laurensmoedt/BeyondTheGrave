@@ -1,14 +1,15 @@
 import pygame
 from Extensions.actor import actor
 from Extensions.image import image
+from Extensions.collision import collision
 
 class Player(actor):
 
     def __init__(self, win, speed, moveSmoothness):
         self.win = win
-        self.playerImage = image('maik.png', [32, 32])
+        self.playerImage = image("maik.png", [32, 32])
         super().__init__(self.playerImage)
-        super().setPosition([100, 100])
+        super().setPosition([410, 300])
 
         startPos = super().getPosition()
         self.pos = pygame.Vector2(startPos)
@@ -16,6 +17,9 @@ class Player(actor):
         self.set_target(startPos)
         self.speed = speed
         self.targetRadius = moveSmoothness
+
+        self.collision = collision(self, 'square')
+        self.collision.setCollision(True)
 
     def set_target(self, pos):
         self.target = pygame.Vector2(pos)
@@ -44,3 +48,4 @@ class Player(actor):
     def draw(self):
         super()._draw(self.win)
         self.movement()
+        self.collision.checkState()

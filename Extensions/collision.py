@@ -11,13 +11,13 @@ class collision:
         self.type = colType
         self.width = self.actor.width
         self.height = self.actor.height
-    
+
     '''
     Functionality for turning the collision on & off.
     '''
     def setCollision(self, col):
         if col is True:
-            self.setPosition()
+            self._setPosition()
         self._hasCollision = col
         return self._hasCollision
 
@@ -37,16 +37,17 @@ class collision:
         dy = self.actor.getPosition()[1]
         radius = (self.width / 2)
         return [dx, dy, radius]
-    
+
     '''
     Adding start X & Y and end X & Y.
     Calculation is done by @calculatePositions.
     '''
     def _setPosition(self):
-        if self.type is 'square': 
-            self._squarePositions.append(self.calculateSquarePositions())
+        if self.type is 'square':
+            self._squarePositions.append(self._calculateSquarePositions())
         elif self.type is 'circle':
-            self._circlePositions.append(self.calculateCirclePositions())
+            print(self._calculateCirclePositions())
+            self._circlePositions.append(self._calculateCirclePositions())
 
     '''
     Returns the list with active collision
@@ -65,10 +66,10 @@ class collision:
         collided = False
         [x, y] = self.actor.getPosition()
         for i in range(len(self._squarePositions)):
-            if self.calculateSquarePositions() == self._squarePositions[i]:
+            if self._calculateSquarePositions() == self._squarePositions[i]:
                 continue
             if (x >= self._squarePositions[i][0]) and (y >= self._squarePositions[i][1]):
-                if (x <= self._squarePositions[i][1]) and (y <= self._squarePositions[i][3]):
+                if (x <= self._squarePositions[i][2]) and (y <= self._squarePositions[i][3]):
                     collided = True
                     break
         if not collided:
@@ -86,9 +87,10 @@ class collision:
         collided = False
         [x, y, r] = self._calculateCirclePositions()
         for i in range(len(self._circlePositions)):
-            dx = x - self._circlePositions[0]
-            dy = y - self._circlePositions[1]
-            radius = r - self._circlePositions[2]
+            dx = x - self._circlePositions[i][0]
+            dy = y - self._circlePositions[i][1]
+            radius = r - self._circlePositions[i][2]
+            print('hi', (dx * dx + dy * dy), (radius * radius))
             if (dx * dx + dy * dy) < (radius * radius):
                 collided = True
                 break
