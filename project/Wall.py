@@ -9,7 +9,7 @@ class Wall(actor):
         self.win = win
         self.image = image("Wall.png", [256, 256])
         super().__init__(self.image)
-        super().setPosition([400, 250])
+        super().setPosition([400, 150])
 
         #collision
         self.collision = collision(self, 'square')

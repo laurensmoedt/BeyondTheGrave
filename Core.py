@@ -29,5 +29,5 @@ class Core:
         self.scene.update(clock, fps)
         pygame.display.update()
 
-Scene = Core(800, 500)
+Scene = Core(800, 512)
 Scene.run('Beyond-The-Grave', 60)

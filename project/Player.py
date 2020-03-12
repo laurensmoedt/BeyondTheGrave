@@ -7,9 +7,9 @@ class Player(actor):
 
     def __init__(self, win, speed, moveSmoothness):
         self.win = win
-        self.playerImage = image("maik.png", [32, 32])
+        self.playerImage = image("characters/maik.png", [32, 32])
         super().__init__(self.playerImage)
-        super().setPosition([410, 300])
+        super().setPosition([390, 290])
 
         startPos = super().getPosition()
         self.pos = pygame.Vector2(startPos)

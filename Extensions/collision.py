@@ -30,6 +30,7 @@ class collision:
         startY = self.actor.getPosition()[1]
         endX = self.actor.getPosition()[0] + self.width
         endY = self.actor.getPosition()[1] + self.height
+        print([startX, startY, endX, endY])
         return [startX, startY, endX, endY]
 
     def _calculateCirclePositions(self):
