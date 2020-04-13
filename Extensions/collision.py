@@ -30,7 +30,6 @@ class collision:
         startY = self.actor.getPosition()[1]
         endX = self.actor.getPosition()[0] + self.width
         endY = self.actor.getPosition()[1] + self.height
-        print([startX, startY, endX, endY])
         return [startX, startY, endX, endY]
 
     def _calculateCirclePositions(self):
@@ -47,7 +46,6 @@ class collision:
         if self.type is 'square':
             self._squarePositions.append(self._calculateSquarePositions())
         elif self.type is 'circle':
-            print(self._calculateCirclePositions())
             self._circlePositions.append(self._calculateCirclePositions())
 
     '''
@@ -66,13 +64,14 @@ class collision:
     def _checkSquareCollision(self):
         collided = False
         [x, y] = self.actor.getPosition()
+        [endX, endY] = self.actor.getPosition() + [self.width/2, self.height/2]
         for i in range(len(self._squarePositions)):
             if self._calculateSquarePositions() == self._squarePositions[i]:
                 continue
-            if (x >= self._squarePositions[i][0]) and (y >= self._squarePositions[i][1]):
-                if (x <= self._squarePositions[i][2]) and (y <= self._squarePositions[i][3]):
-                    collided = True
-                    break
+            if ((x >= self._squarePositions[i][0]) and (endX <= self._squarePositions[i][2])) and ((y >= self._squarePositions[i][1]) and endY <= self._squarePositions[i][3]):
+                collided = True
+                break
+
         if not collided:
             for i in range(len(self._circlePositions)):
                 mx = max(x, min(self._circlePositions[i][0], x + self.width))

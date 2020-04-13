@@ -2,37 +2,38 @@ import pygame
 from Extensions.actor import actor
 from Extensions.image import image
 from Extensions.collision import collision
+from project.Player import Player
 
-class Player(actor):
+class Enemy(actor):
 
-    def __init__(self, win, speed, moveSmoothness):
+    def __init__(self, win, speed, moveSmoothness, target):
         self.win = win
-        self.playerImage = image("characters/maik.png", [32, 32])
-        super().__init__(self.playerImage)
+        self.enemyImage = image("characters/maik.png", [33, 33])
+        super().__init__(self.enemyImage)
         super().setPosition([390, 290])
 
         startPos = super().getPosition()
         self.pos = pygame.Vector2(startPos)
-        self.pos -= self.playerImage.getWidth()/2, self.playerImage.getHeight()
-        self.set_target(startPos)
+        self.pos -= self.enemyImage.getWidth()/2, self.enemyImage.getHeight()
+
         self.speed = speed
         self.targetRadius = moveSmoothness
+
+        self.target = target
+        self.targetPos = self.target.getPosition()
+        self.set_target(self.targetPos)
 
         self.collision = collision(self, 'square')
         self.collision.setCollision(True)
 
     def set_target(self, pos):
-        self.target = pygame.Vector2(pos)
-        self.target -= self.playerImage.getWidth()/2, self.playerImage.getHeight()
+        self.targetPos = pygame.Vector2(pos)
+        self.targetPos -= self.enemyImage.getWidth()/2, self.enemyImage.getHeight()
 
     def movement(self):
-        for event in pygame.event.get():
-            if pygame.mouse.get_pressed()[2]: # move player with right mouse button
-                self.set_target(pygame.mouse.get_pos())
-                if event.type == pygame.MOUSEMOTION:
-                    self.set_target(pygame.mouse.get_pos())
+        self.targetPos = self.target.getPosition()
 
-        move = self.target - self.pos
+        move = self.targetPos - self.pos
         move_length = move.length()
 
         if move:
