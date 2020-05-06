@@ -8,7 +8,7 @@ class Enemy(actor):
 
     def __init__(self, win, speed, moveSmoothness, target):
         self.win = win
-        self.enemyImage = image("characters/maik.png", [33, 33])
+        self.enemyImage = image("characters/maik.png", [40, 40])
         super().__init__(self.enemyImage)
         super().setPosition([390, 290])
 
@@ -44,7 +44,7 @@ class Enemy(actor):
             move = move * (move_length / self.targetRadius * self.speed) # slows down Player if player is close to the target
 
         self.pos += move
-        newPos = super().setPosition(self.pos)
+        super().setPosition(self.pos)
 
     def draw(self):
         super()._draw(self.win)

@@ -2,6 +2,8 @@ import pygame
 from Extensions.actor import actor
 from Extensions.image import image
 from Extensions.collision import collision
+from project.Weapon import Weapon
+from project.Projectile import Projectile
 
 class Player(actor):
 
@@ -10,6 +12,7 @@ class Player(actor):
         self.playerImage = image("characters/maik.png", [32, 32])
         super().__init__(self.playerImage)
         super().setPosition([390, 290])
+        self.rect = self.playerImage.get_rect();
 
         startPos = super().getPosition()
         self.pos = pygame.Vector2(startPos)
@@ -21,13 +24,28 @@ class Player(actor):
         self.collision = collision(self, 'square')
         self.collision.setCollision(True)
 
+        #self.weapon = Weapon(self.win, "bow")
+        #sprite lists
+        # self.all_sprites = pygame.sprite.Group()
+        # self.projectiles = pygame.sprite.Group()
+
+    def shoot(self):
+        projectile = Projectile(self, 1,1)
+        # self.all_sprites.add(projectile)
+        # self.projectiles.add(projectile)
+
     def set_target(self, pos):
         self.target = pygame.Vector2(pos)
         self.target -= self.playerImage.getWidth()/2, self.playerImage.getHeight()
 
-    def movement(self):
+    def update(self):
         for event in pygame.event.get():
-            if pygame.mouse.get_pressed()[2]: # move player with right mouse button
+            #key_events for weapon fired
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self.shoot()
+            #key_events for player movement
+            if pygame.mouse.get_pressed()[2]:
                 self.set_target(pygame.mouse.get_pos())
                 if event.type == pygame.MOUSEMOTION:
                     self.set_target(pygame.mouse.get_pos())
@@ -43,8 +61,8 @@ class Player(actor):
             move = move * (move_length / self.targetRadius * self.speed) # slows down Player if player is close to the target
 
         self.pos += move
-        newPos = super().setPosition(self.pos)
+        super().setPosition(self.pos)
 
     def draw(self):
         super()._draw(self.win)
-        self.movement()
+        self.update()

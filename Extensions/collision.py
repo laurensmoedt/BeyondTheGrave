@@ -12,6 +12,7 @@ class collision:
         self.width = self.actor.width
         self.height = self.actor.height
 
+
     '''
     Functionality for turning the collision on & off.
     '''
@@ -64,7 +65,7 @@ class collision:
     def _checkSquareCollision(self):
         collided = False
         [x, y] = self.actor.getPosition()
-        [endX, endY] = self.actor.getPosition() + [self.width/2, self.height/2]
+        [endX, endY] = self.actor.getPosition() + [self.width, self.height]
         for i in range(len(self._squarePositions)):
             if self._calculateSquarePositions() == self._squarePositions[i]:
                 continue

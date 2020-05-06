@@ -6,6 +6,7 @@ from project.Player import Player
 from project.Enemy import Enemy
 from project.PortalHeaven import PortalHeaven
 from project.PortalHell import PortalHell
+from project.Weapon import Weapon
 
 class Main:
 
@@ -18,14 +19,18 @@ class Main:
         self.portalHeaven = PortalHeaven(self.window)
         self.portalHell = PortalHell(self.window)
 
-        self.enemy = Enemy(self.window, 2, 20, self.player)
+        self.enemy = Enemy(self.window, 2, 5, self.player)
+
+        self.Weapon = Weapon(self.window, "bow")
 
     def draw(self, clock, fps):
         self.backgroundImage.draw(self.window)
         self.portalHeaven.draw()
         self.portalHell.draw()
-        self.player.draw()
         self.enemy.draw()
+        self.player.draw()
+        self.Weapon.draw()
+        self.Weapon.setPosition(self.player.getPosition())
 
         if self.player.collision.checkState() == True:
             print(self.player.collision.checkState())

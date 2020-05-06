@@ -12,6 +12,8 @@ class image:
         self.height = properties[1]
         self.position = [0, 0]
 
+        self.rect = pygame.Rect((self.position), (self.width, self.height))
+
     def _setupImage(self):
         image = pygame.image.load(os.path.join("project/assets/sprites", self.fileName))
         scaledImage = pygame.transform.scale(image, (self.width, self.height))
@@ -40,6 +42,9 @@ class image:
     def setScale(self, scale):
         self.width *= scale
         self.height *= scale
+
+    def get_rect(self):
+        return self.rect
 
     def draw(self, win):
         win.blit(self._setupImage(), (self.position[0], self.position[1]))

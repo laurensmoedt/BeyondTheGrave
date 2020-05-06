@@ -2,6 +2,7 @@ import pygame
 from Extensions.actor import actor
 from Extensions.image import image
 from Extensions.collision import collision
+from project.Player import Player
 
 class PortalHeaven(actor):
 
