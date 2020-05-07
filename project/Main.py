@@ -7,6 +7,7 @@ from project.Enemy import Enemy
 from project.PortalHeaven import PortalHeaven
 from project.PortalHell import PortalHell
 from project.Weapon import Weapon
+from project.Projectile import Projectile
 
 class Main:
 
@@ -21,7 +22,15 @@ class Main:
 
         self.enemy = Enemy(self.window, 2, 5, self.player)
 
-        self.Weapon = Weapon(self.window, "bow")
+        self.weapon = Weapon(self.window, "bow")
+
+        #projectile sprite list
+        self.projectiles = pygame.sprite.Group()
+
+    def shoot(self):
+        self.projectile = Projectile(self.window, self.player.pos, 15)
+        self.projectile.position = self.player.pos
+        self.projectiles.add(self.projectile)
 
     def draw(self, clock, fps):
         self.backgroundImage.draw(self.window)
@@ -29,10 +38,16 @@ class Main:
         self.portalHell.draw()
         self.enemy.draw()
         self.player.draw()
-        self.Weapon.draw()
-        self.Weapon.setPosition(self.player.getPosition())
+        self.weapon.draw()
+        self.weapon.setPosition(self.player.getPosition())
 
         if self.player.collision.checkState() == True:
             print(self.player.collision.checkState())
+
+        # projectiles
+        if self.player.shot == True:
+            self.shoot()
+        self.projectiles.draw(self.window)
+        self.projectiles.update()
 
         pygame.display.update()
