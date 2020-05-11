@@ -9,7 +9,7 @@ class Player(actor):
 
     def __init__(self, win, speed, moveSmoothness):
         self.win = win
-        self.playerImage = image("characters/maik.png", [32, 32])
+        self.playerImage = image("characters/Character_heaven.png", [32, 32])
         super().__init__(self.playerImage)
         super().setPosition([390, 290])
 
@@ -21,13 +21,15 @@ class Player(actor):
         self.targetRadius = moveSmoothness
 
         self.collision = collision(self, 'square')
-        self.collision.setCollision(True)
+        self.collision.setCollision(True, 'moving')
 
     def set_target(self, pos):
         self.target = pygame.Vector2(pos)
         self.target -= self.playerImage.getWidth()/2, self.playerImage.getHeight()
 
     def update(self):
+        self.collision._setPositionMoving()
+
         self.shot = False
         for event in pygame.event.get():
             #key_events for weapon fired

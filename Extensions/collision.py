@@ -1,7 +1,8 @@
 class collision:
 
     _hasCollision = None
-    _squarePositions = []
+    _squarePositionsStationary = []
+    _squarePositionsMoving = []
     _circlePositions = []
 
     def __init__(self, actor, colType):
@@ -15,10 +16,14 @@ class collision:
 
     '''
     Functionality for turning the collision on & off.
+    If the objType is moving, always call '_setPositionMoving' function in the update of the class.
     '''
-    def setCollision(self, col):
+    def setCollision(self, col, objType):
         if col is True:
-            self._setPosition()
+            if objType is 'stationary':
+                self._setPosition()
+            if objType is 'moving':
+                self._setPositionMoving()
         self._hasCollision = col
         return self._hasCollision
 
@@ -27,15 +32,13 @@ class collision:
     This calculation needs the X & Y positions and the width and height from a actor.
     '''
     def _calculateSquarePositions(self):
-        startX = self.actor.getPosition()[0]
-        startY = self.actor.getPosition()[1]
+        startX, startY = self.actor.getPosition()
         endX = self.actor.getPosition()[0] + self.width
         endY = self.actor.getPosition()[1] + self.height
         return [startX, startY, endX, endY]
 
     def _calculateCirclePositions(self):
-        dx = self.actor.getPosition()[0]
-        dy = self.actor.getPosition()[1]
+        dx, dy = self.actor.getPosition()
         radius = (self.width / 2)
         return [dx, dy, radius]
 
@@ -45,7 +48,13 @@ class collision:
     '''
     def _setPosition(self):
         if self.type is 'square':
-            self._squarePositions.append(self._calculateSquarePositions())
+            self._squarePositionsStationary.append(self._calculateSquarePositions())
+        elif self.type is 'circle':
+            self._circlePositions.append(self._calculateCirclePositions())
+
+    def _setPositionMoving(self):
+        if self.type is 'square':
+            self._squarePositionsMoving.append(self._calculateSquarePositions())
         elif self.type is 'circle':
             self._circlePositions.append(self._calculateCirclePositions())
 
@@ -54,7 +63,7 @@ class collision:
     '''
     def getActiveCols(self, colType):
         if colType is 'square':
-            return self._squarePositions
+            return self._squarePositionsMoving
         elif colType is 'circle':
             return self._circlePositions
 
@@ -64,12 +73,18 @@ class collision:
     '''
     def _checkSquareCollision(self):
         collided = False
-        [x, y] = self.actor.getPosition()
+        [startX, startY] = self.actor.getPosition()
         [endX, endY] = self.actor.getPosition() + [self.width, self.height]
-        for i in range(len(self._squarePositions)):
-            if self._calculateSquarePositions() == self._squarePositions[i]:
-                continue
-            if ((x >= self._squarePositions[i][0]) and (endX <= self._squarePositions[i][2])) and ((y >= self._squarePositions[i][1]) and endY <= self._squarePositions[i][3]):
+        for i in range(len(self._squarePositionsStationary)):
+
+            if ((startX < self._squarePositionsStationary[i][2]) and endX > self._squarePositionsStationary[i][0] and startY < self._squarePositionsStationary[i][3] and endY > self._squarePositionsStationary[i][1]):
+                collided = True
+                break
+
+        for i in range(len(self._squarePositionsMoving)):
+            if i == 0:
+                break
+            elif (startX < self._squarePositionsMoving[i][2] and endX > self._squarePositionsMoving[i][0] and startY < self._squarePositionsMoving[i][3] and endY > self._squarePositionsMoving[i][1]):
                 collided = True
                 break
 
@@ -91,22 +106,24 @@ class collision:
             dx = x - self._circlePositions[i][0]
             dy = y - self._circlePositions[i][1]
             radius = r - self._circlePositions[i][2]
-            print('hi', (dx * dx + dy * dy), (radius * radius))
             if (dx * dx + dy * dy) < (radius * radius):
                 collided = True
                 break
         if not collided:
-            for i in range(len(self._squarePositions)):
-                width = (self._squarePositions[i][2] - self._squarePositions[i][0])
-                height = (self._squarePositions[i][3] - self._squarePositions[i][1])
-                mx = max(self._squarePositions[i][0], min(x, self._squarePositions[i][0] + width))
-                my = max(self._squarePositions[i][1], min(y, self._squarePositions[i][1] + height))
+            for i in range(len(self._squarePositionsStationary)):
+                width = (self._squarePositionsStationary[i][2] - self._squarePositionsStationary[i][0])
+                height = (self._squarePositionsStationary[i][3] - self._squarePositionsStationary[i][1])
+                mx = max(self._squarePositionsStationary[i][0], min(x, self._squarePositionsStationary[i][0] + width))
+                my = max(self._squarePositionsStationary[i][1], min(y, self._squarePositionsStationary[i][1] + height))
                 dx = x - mx
                 dy = y - my
                 if (dx * dx + dy * dy) < (r * r):
                     collided = True
                     break
         return collided
+
+    def updateMovingObjects(self):
+        self._squarePositionsMoving.clear()
 
     def checkState(self):
         if self.type is 'square':

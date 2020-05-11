@@ -2,17 +2,21 @@ import pygame
 import math
 from Extensions.actor import actor
 from Extensions.image import image
+from Extensions.collision import collision
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, win, pos, bulletspeed):
         super().__init__()
+        self.pos = pos
 
         self.image = pygame.Surface([8, 3])
         self.image.fill((0,0,0))
-        self.rect = self.image.get_rect()
 
-        self.pos = pos
+        self.rect = self.image.get_rect()
         self.rect = self.image.get_rect(topleft=(self.pos))
+
+        self.width = self.rect.width
+        self.height = self.rect.height
 
         self.floating_point_x = self.pos.x
         self.floating_point_y = self.pos.y
@@ -32,10 +36,18 @@ class Projectile(pygame.sprite.Sprite):
         mouseX, mouseY = pygame.mouse.get_pos()
         rel_x, rel_y = mouseX - self.pos.x, mouseY - self.pos.y
         angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
-        print(angle)
         self.image = pygame.transform.rotate(self.image, int(angle))
 
+        # Add collision to projectile
+        self.collision = collision(self, 'square')
+        self.collision.setCollision(True, 'moving')
+
+    def getPosition(self):
+        return self.pos
+
     def update(self):
+        self.collision._setPositionMoving()
+
         # The floating point x and y hold our more accurate location.
         self.floating_point_x += self.change_x
         self.floating_point_y += self.change_y

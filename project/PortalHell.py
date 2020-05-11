@@ -13,7 +13,7 @@ class PortalHell(actor):
 
         #collision
         self.collision = collision(self, 'square')
-        self.collision.setCollision(True)
+        self.collision.setCollision(True, 'stationary')
 
     def draw(self):
         super()._draw(self.win)
