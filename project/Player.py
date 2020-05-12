@@ -10,7 +10,7 @@ class Player(actor):
     def __init__(self, win, speed, moveSmoothness):
         self.win = win
         self.playerImage = image("characters/Character_heaven.png", [32, 32])
-        super().__init__(self.playerImage)
+        super().__init__(self.playerImage, 'player')
         super().setPosition([390, 290])
 
         startPos = super().getPosition()

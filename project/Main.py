@@ -41,17 +41,16 @@ class Main:
         self.weapon.draw()
         self.weapon.setPosition(self.player.getPosition())
 
-        # player collision with anything that has collision
-        if self.enemy.collision.checkState() == True:
-            print(self.enemy.collision.checkState())
-
         # projectiles
         if self.player.shot == True:
             self.shoot()
         self.projectiles.draw(self.window)
         self.projectiles.update()
 
-        self.player.collision.updateMovingObjects()
+        # check for collision
+        if self.enemy.collision.checkState('projectile') == True:
+            print('hit')
 
 
+        self.player.collision.clearMovingObjects()
         pygame.display.update()

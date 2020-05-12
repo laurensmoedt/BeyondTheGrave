@@ -9,7 +9,7 @@ class PortalHeaven(actor):
     def __init__(self, win):
         self.win = win
         self.image = image("portals/Heaven_Portal.png", [64, 128])
-        super().__init__(self.image)
+        super().__init__(self.image, 'portalHeaven')
         super().setPosition([289, -16])
 
         #collision

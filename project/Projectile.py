@@ -7,7 +7,9 @@ from Extensions.collision import collision
 class Projectile(pygame.sprite.Sprite):
     def __init__(self, win, pos, bulletspeed):
         super().__init__()
+        self.name = 'projectile'
         self.pos = pos
+        self.currentPos = pygame.Vector2(0,0)
 
         self.image = pygame.Surface([8, 3])
         self.image.fill((0,0,0))
@@ -43,11 +45,9 @@ class Projectile(pygame.sprite.Sprite):
         self.collision.setCollision(True, 'moving')
 
     def getPosition(self):
-        return self.pos
+        return self.currentPos
 
     def update(self):
-        self.collision._setPositionMoving()
-
         # The floating point x and y hold our more accurate location.
         self.floating_point_x += self.change_x
         self.floating_point_y += self.change_y
@@ -56,9 +56,14 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.x = int(self.floating_point_x)
         self.rect.y = int(self.floating_point_y)
 
+        self.currentPos = pygame.Vector2(self.rect.left, self.rect.top)
+
+        self.collision._setPositionMoving()
+
         # If the bullet flies of the screen, get rid of it.
         if self.rect.x < 0 or self.rect.x > 800 or self.rect.y < 0 or self.rect.y > 512:
             self.kill()
 
     def draw(self):
          super()._draw(self.win)
+         self.update()

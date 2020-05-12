@@ -9,7 +9,7 @@ class Enemy(actor):
     def __init__(self, win, speed, moveSmoothness, target):
         self.win = win
         self.enemyImage = image("characters/maik.png", [32, 32])
-        super().__init__(self.enemyImage)
+        super().__init__(self.enemyImage, 'enemy')
         super().setPosition([190, 290])
 
         startPos = super().getPosition()

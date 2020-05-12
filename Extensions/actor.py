@@ -7,8 +7,9 @@ class actor:
 
     global width, height
 
-    def __init__(self, image, hasAnim = False):
+    def __init__(self, image, actorName, hasAnim = False):
         self.texture = image
+        self.name = actorName
         self.hasAnimation = hasAnim
         self.position = []
         self.dt = pygame.time.Clock().tick(60) / 1000
@@ -40,6 +41,9 @@ class actor:
             return self.texture.position
         else:
             return self.position
+
+    def getName(self):
+        return self.name
 
     def setVelocity(self, velocityVector2):
         x, y = velocityVector2[0], velocityVector2[1]

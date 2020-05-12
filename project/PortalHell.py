@@ -8,7 +8,7 @@ class PortalHell(actor):
     def __init__(self, win):
         self.win = win
         self.image = image("portals/Hell_Portal.png", [64, 128])
-        super().__init__(self.image)
+        super().__init__(self.image, 'portalHell')
         super().setPosition([447, -16])
 
         #collision
